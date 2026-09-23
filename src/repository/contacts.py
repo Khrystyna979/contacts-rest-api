@@ -15,11 +15,11 @@ async def read_contacts(skip: int,
     stmt = select(Contact)
     filters = []
     if first_name:
-        filters.append(Contact.first_name == first_name)
+        filters.append(Contact.first_name.ilike(f'%{first_name}%'))
     if last_name:
-        filters.append(Contact.last_name == last_name)
+        filters.append(Contact.last_name.ilike(f'%{last_name}%'))
     if email:
-        filters.append(Contact.email == email)
+        filters.append(Contact.email.ilike(f'%{email}%'))
         
     if filters:
         stmt = stmt.where(and_(*filters))
